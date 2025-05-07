@@ -559,33 +559,6 @@
     </footer>
   </main>
   <script>
-    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    const navMenu = document.querySelector('.nav-menu');
-
-    mobileMenuBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      navMenu.classList.toggle('active');
-      mobileMenuBtn.textContent = navMenu.classList.contains('active') ? '✕' : '☰';
-    });
-
-    navMenu.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', () => {
-        navMenu.classList.remove('active');
-        mobileMenuBtn.textContent = '☰';
-      });
-    });
-
-    document.addEventListener('click', (e) => {
-      if (!navMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-        navMenu.classList.remove('active');
-        mobileMenuBtn.textContent = '☰';
-      }
-    });
-
-    navMenu.addEventListener('click', (e) => {
-      e.stopPropagation();
-    });
-
     const form = document.getElementById('leadForm');
     const thankYou = document.getElementById('thankyou');
     const naam = document.getElementById('naam');
@@ -611,7 +584,8 @@
       }
       if (!valid) return;
       const data = new FormData(form);
-      fetch('https://script.google.com/macros/s/AKfycbxIHff4rVw_Fz__y7FIVwjxahDyYR0XY3VupR8mgzXz4vKC6xnCmhxJZLgxhwyI5OCuow/exec', {
+      data.append('pdf_type', 'Crypto');
+      fetch('https://script.google.com/macros/s/AKfycbxmix3B6bGNQVkfGvAUcCfv5EAcB3VsngOi-nPzlhZAaIQc_-K6ST-vdwJ1z0QEuWuX/exec', {
         method: 'POST',
         body: data
       })
@@ -624,6 +598,34 @@
         alert("Er ging iets mis. Probeer later opnieuw.");
         console.error(error);
       });
+    });
+
+    // Mobile menu functionality
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navMenu = document.querySelector('.nav-menu');
+
+    mobileMenuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      navMenu.classList.toggle('active');
+      mobileMenuBtn.textContent = navMenu.classList.contains('active') ? '✕' : '☰';
+    });
+
+    navMenu.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+        mobileMenuBtn.textContent = '☰';
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!navMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+        navMenu.classList.remove('active');
+        mobileMenuBtn.textContent = '☰';
+      }
+    });
+
+    navMenu.addEventListener('click', (e) => {
+      e.stopPropagation();
     });
   </script>
 </body>
